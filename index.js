@@ -6,11 +6,13 @@ app.set("view engine", "ejs");
 app.get("/:nome?/:lang?", (req, res) => {
   var nome = req.params.nome;
   var language = req.params.lang;
+  var exibirmsg = true;
   res.render("index", {
     nome: nome,
     lang: language,
     empresa: "Seven",
     inscritos: 8000,
+    msg: exibirmsg,
   });
 });
 
