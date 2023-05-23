@@ -23,6 +23,11 @@
             <h1>Xurumbreba</h1>
             <% } %>
 
+                <% produtos.forEach(function(produto) { %>
+                    <%= produto.nome %>
+                        <%= produto.preco %>
+                            <% }); %>
+
 </body>
 
 </html>
