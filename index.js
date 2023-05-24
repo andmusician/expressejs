@@ -2,6 +2,15 @@ const express = require("express");
 const app = express();
 
 app.set("view engine", "ejs");
+app.use(express.static("public"));
+
+app.get("/", (req, res) => {
+  res.render("home");
+});
+
+app.get("/perguntar", (req, res) => {
+  res.render("perguntar");
+});
 
 app.get("/:nome?/:lang?", (req, res) => {
   var nome = req.params.nome;
