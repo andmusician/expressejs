@@ -1,8 +1,15 @@
 const express = require("express");
+const parser = require("body-parser");
+const bodyParser = require("body-parser");
+const modelPergunta = require("./database/model/Pergunta");
+
 const app = express();
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
   res.render("home");
@@ -10,6 +17,12 @@ app.get("/", (req, res) => {
 
 app.get("/perguntar", (req, res) => {
   res.render("perguntar");
+});
+
+app.post("/salvarpergunta", (req, res) => {
+  var titulo = req.body.titulo;
+  var descricao = req.body.descricao;
+  res.send(`Formulário recebido! titulo: ${titulo} descricao: ${descricao}`);
 });
 
 app.get("/:nome?/:lang?", (req, res) => {
