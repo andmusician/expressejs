@@ -14,6 +14,8 @@ const Pergunta = connection.define("pergunta", {
 
 Pergunta.sync({ force: false }).then(() => {});
 
+module.exports = Pergunta;
+
 // class Pergunta extends Model {}
 // Pergunta.init(
 //   {

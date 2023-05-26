@@ -12,4 +12,13 @@ const connection = new Sequelize(
   }
 );
 
+connection
+  .authenticate()
+  .then(() => {
+    console.log("Database conectado");
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
 module.exports = connection;

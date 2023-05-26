@@ -1,7 +1,7 @@
 const express = require("express");
 const parser = require("body-parser");
 const bodyParser = require("body-parser");
-const modelPergunta = require("./database/model/Pergunta");
+const perguntaRepository = require("./repositories/perguntas.repository");
 
 const app = express();
 
@@ -22,7 +22,12 @@ app.get("/perguntar", (req, res) => {
 app.post("/salvarpergunta", (req, res) => {
   var titulo = req.body.titulo;
   var descricao = req.body.descricao;
-  res.send(`Formulário recebido! titulo: ${titulo} descricao: ${descricao}`);
+  const salvarPergunta = perguntaRepository.create({
+    titulo: `${titulo}`,
+    descricao: `${descricao}`,
+  });
+
+  res.redirect("/");
 });
 
 app.get("/:nome?/:lang?", (req, res) => {
