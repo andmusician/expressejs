@@ -13,6 +13,14 @@
                             <%= pergunta.descricao %>
                         </p>
                     </div>
+                    <div class="card-footer">
+                        <% respostas.forEach(respostas=> { %>
+                            <p>
+                                <%= respostas.id %> : <%= respostas.corpo %>
+                            </p>
+
+                            <% }) %>
+                    </div>
                 </div>
                 <br>
                 <form method="POST" action="/salvarresposta">

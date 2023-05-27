@@ -27,7 +27,9 @@ app.get("/pergunta/:id", (req, res) => {
   const perguntaById = perguntaRepository
     .findById(id)
     .then((prg) => {
-      res.render("pergunta", { pergunta: prg });
+      respostaRepository.read(id).then((respostas) => {
+        res.render("pergunta", { pergunta: prg, respostas: respostas });
+      });
     })
     .catch((error) => {
       res.render("error", { error: error });

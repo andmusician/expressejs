@@ -13,15 +13,17 @@ class RespostaRepository {
   }
 
   // Método para obter todas as instâncias
-  async read() {
+  async read(id) {
     try {
       const instances = await Resposta.findAll({
         raw: true,
-        order: [["id", "DESC"]],
+        where: { perguntaId: id },
       });
       return instances;
     } catch (error) {
-      throw new Error("Erro ao obter as instâncias de Resposta.");
+      throw new Error(
+        `Erro ao obter as instâncias de Resposta para o id ${id}.`
+      );
     }
   }
 
