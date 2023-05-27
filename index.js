@@ -12,7 +12,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-  res.render("home");
+  const perguntas = perguntaRepository.read().then((prg) => {
+    res.render("home", { pergunta: prg });
+  });
 });
 
 app.get("/perguntar", (req, res) => {
@@ -22,10 +24,14 @@ app.get("/perguntar", (req, res) => {
 app.post("/salvarpergunta", (req, res) => {
   var titulo = req.body.titulo;
   var descricao = req.body.descricao;
-  const salvarPergunta = perguntaRepository.create({
-    titulo: `${titulo}`,
-    descricao: `${descricao}`,
-  });
+  const salvarPergunta = perguntaRepository
+    .create({
+      titulo: `${titulo}`,
+      descricao: `${descricao}`,
+    })
+    .then((resp) => {
+      // console.log(JSON.stringify(resp));
+    });
 
   res.redirect("/");
 });

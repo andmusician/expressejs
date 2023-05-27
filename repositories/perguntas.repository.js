@@ -15,7 +15,7 @@ class PerguntaRepository {
   // Método para obter todas as instâncias
   async read() {
     try {
-      const instances = await Pergunta.findAll();
+      const instances = await Pergunta.findAll({ raw: true });
       return instances;
     } catch (error) {
       throw new Error("Erro ao obter as instâncias de Pergunta.");
