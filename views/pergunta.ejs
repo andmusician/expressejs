@@ -14,12 +14,12 @@
                         </p>
                     </div>
                     <div class="card-footer">
-                        <% respostas.forEach(respostas=> { %>
+                        <% var cont=1; respostas.forEach(respostas=> { %>
                             <p>
-                                <%= respostas.id %> : <%= respostas.corpo %>
+                                <%= cont %> : <%= respostas.corpo %>
                             </p>
 
-                            <% }) %>
+                            <% cont++; }) %>
                     </div>
                 </div>
                 <br>
