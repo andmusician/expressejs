@@ -6,8 +6,13 @@
     <body>
         <%- include("partials/navbar.ejs") %>
             <div class="container">
+                <hr>
+                <h1>Perguntas</h1>
+                <hr>
+                <a href="/perguntar" class="btn btn-dark">Perguntar</a>
+                <hr>
                 <% pergunta.forEach(pergunta=> { %>
-
+                    <br>
                     <div class="card">
                         <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
                         <div class="card-body">
@@ -20,7 +25,8 @@
                         </div>
                         <div class="card-footer">
                             <div class="col-md-12 bg-light text-right">
-                                <button type="button" class="btn btn-dark">Responder</button>
+                                <a href="/pergunta/<%= pergunta.id %>"><button type="button"
+                                        class="btn btn-dark">Responder</button></a>
                             </div>
 
                         </div>

@@ -1,0 +1,15 @@
+<%- include("partials/header.ejs") %>
+
+    <body>
+        <%- include("partials/navbar.ejs") %>
+            <div class="container">
+                <br>
+                <div class="alert alert-danger" role="alert">
+                    <strong>
+                        <%= error.message %>
+                    </strong>
+                </div>
+                <a href="/">Retornar para a página inicial</a>
+            </div>
+    </body>
+    <%- include("partials/footer.ejs") %>

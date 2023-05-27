@@ -2,6 +2,7 @@ const express = require("express");
 const parser = require("body-parser");
 const bodyParser = require("body-parser");
 const perguntaRepository = require("./repositories/perguntas.repository");
+const respostaRepository = require("./repositories/respostas.repository");
 
 const app = express();
 
@@ -21,6 +22,18 @@ app.get("/perguntar", (req, res) => {
   res.render("perguntar");
 });
 
+app.get("/pergunta/:id", (req, res) => {
+  var id = req.params.id;
+  const perguntaById = perguntaRepository
+    .findById(id)
+    .then((prg) => {
+      res.render("pergunta", { pergunta: prg });
+    })
+    .catch((error) => {
+      res.render("error", { error: error });
+    });
+});
+
 app.post("/salvarpergunta", (req, res) => {
   var titulo = req.body.titulo;
   var descricao = req.body.descricao;
@@ -34,6 +47,20 @@ app.post("/salvarpergunta", (req, res) => {
     });
 
   res.redirect("/");
+});
+
+app.post("/salvarresposta", (req, res) => {
+  var corpo = req.body.corpo;
+  var perguntaid = req.body.perguntaid;
+  const salvarResposta = respostaRepository
+    .create({
+      corpo: `${corpo}`,
+      perguntaId: `${perguntaid}`,
+    })
+    .then((resp) => {
+      // console.log(JSON.stringify(resp));
+    });
+  res.redirect(`/pergunta/${perguntaid}`);
 });
 
 app.get("/:nome?/:lang?", (req, res) => {

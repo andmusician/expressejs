@@ -15,10 +15,25 @@ class PerguntaRepository {
   // Método para obter todas as instâncias
   async read() {
     try {
-      const instances = await Pergunta.findAll({ raw: true });
+      const instances = await Pergunta.findAll({
+        raw: true,
+        order: [["id", "DESC"]],
+      });
       return instances;
     } catch (error) {
       throw new Error("Erro ao obter as instâncias de Pergunta.");
+    }
+  }
+
+  async findById(id) {
+    try {
+      const instance = await Pergunta.findByPk(id);
+      if (instance) {
+        return instance;
+      }
+      throw new Error(`Instância de Pergunta com id ${id} não encontrada.`);
+    } catch (error) {
+      throw new Error(`Não existe pergunta com o id ${id}`);
     }
   }
 
