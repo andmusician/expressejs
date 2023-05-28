@@ -39,30 +39,42 @@ app.get("/pergunta/:id", (req, res) => {
 app.post("/salvarpergunta", (req, res) => {
   var titulo = req.body.titulo;
   var descricao = req.body.descricao;
-  const salvarPergunta = perguntaRepository
-    .create({
-      titulo: `${titulo}`,
-      descricao: `${descricao}`,
-    })
-    .then((resp) => {
-      // console.log(JSON.stringify(resp));
-    });
-
-  res.redirect("/");
+  if (titulo === "") {
+    const error = { message: "Campo não pode estar vazio!" };
+    res.render("error", { error: error });
+  } else {
+    const salvarPergunta = perguntaRepository
+      .create({
+        titulo: `${titulo}`,
+        descricao: `${descricao}`,
+      })
+      .then((resp) => {
+        // console.log(JSON.stringify(resp));
+      });
+    res.redirect("/");
+  }
 });
 
 app.post("/salvarresposta", (req, res) => {
   var corpo = req.body.corpo;
-  var perguntaid = req.body.perguntaid;
-  const salvarResposta = respostaRepository
-    .create({
-      corpo: `${corpo}`,
-      perguntaId: `${perguntaid}`,
-    })
-    .then((resp) => {
-      // console.log(JSON.stringify(resp));
-    });
-  res.redirect(`/pergunta/${perguntaid}`);
+  if (corpo === "") {
+    const error = { message: "Campo não pode estar vazio!" };
+    res.render("error", { error: error });
+  } else {
+    var perguntaid = req.body.perguntaid;
+    const salvarResposta = respostaRepository
+      .create({
+        corpo: `${corpo}`,
+        perguntaId: `${perguntaid}`,
+      })
+      .then((resp) => {
+        // console.log(JSON.stringify(resp));
+      })
+      .catch((error) => {
+        res.render("error", { error: error });
+      });
+    res.redirect(`/pergunta/${perguntaid}`);
+  }
 });
 
 app.get("/:nome?/:lang?", (req, res) => {
